@@ -12,8 +12,11 @@
                         @csrf
                         <input type="file" name="thumbnail" />
                     </form> --}}
-                    <form action="{{ route('gallery.store') }}" class="dropzone" id="my-awesome-dropzone">
-                    @csrf
+                    {{-- <form action="{{ route('gallery.store') }}" class="dropzone" id="my-awesome-dropzone">
+                        @csrf
+                    </form> --}}
+                    <form action="{{ route('gallery.store') }}" class="dropzone" id="my-great-dropzone">
+                        @csrf
                     </form>
 
                 </div>
@@ -31,10 +34,16 @@
     <script src="https://unpkg.com/dropzone@5/dist/min/dropzone.min.js"></script>
     <link rel="stylesheet" href="https://unpkg.com/dropzone@5/dist/min/dropzone.min.css" type="text/css" />
     <script>
-        // Note that the name "myDropzone" is the camelized
-        // id of the form.
-        Dropzone.options.myDropzone = {
-          // Configuration options go here
+        Dropzone.options.myGreatDropzone = { // camelized version of the `id`
+            paramName: "file", // The name that will be used to transfer the file
+            maxFilesize: 2, // MB
+            accept: function(file, done) {
+                if (file.name == "justinbieber.jpg") {
+                    done("Naha, you don't.");
+                } else {
+                    done();
+                }
+            }
         };
-      </script>
+    </script>
 @endpush

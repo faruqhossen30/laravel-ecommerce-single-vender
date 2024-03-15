@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin\Product;
 
 use App\Http\Controllers\Controller;
+use App\Models\Admin\Gallery;
 use App\Models\Admin\Product\Category;
 use App\Models\Admin\Product\Product;
 use App\Models\Admin\Product\SubCategory;
@@ -29,7 +30,8 @@ class ProductController extends Controller
     {
         $categories    = Category::get();
         $subcategories = SubCategory::get();
-        return view('admin.product.create',compact('categories','subcategories'));
+        $thumbnails  = Gallery::get();
+        return view('admin.product.create',compact('categories','subcategories','thumbnails'));
 
     }
 
@@ -38,6 +40,9 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
+        return $request->all();
+
+
         $request->validate(
             [
                  'title'          => 'required',

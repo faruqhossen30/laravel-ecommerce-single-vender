@@ -16,9 +16,9 @@ class GalleryController extends Controller
      */
     public function index()
     {
-       $thumbnail = Gallery::orderBy('id','asc')->paginate(8);
-    //    return $thumbnail;
-        return view('admin.gallery.index',compact('thumbnail'));
+        $thumbnails = Gallery::latest()->paginate(8);
+        //    return $thumbnail;
+        return view('admin.gallery.index', compact('thumbnails'));
     }
 
     /**
@@ -42,7 +42,7 @@ class GalleryController extends Controller
         $extension = $imagethumbnail->getClientOriginalExtension();
         $thumbnailname = Str::uuid() . '.' . $extension;
         Image::make($imagethumbnail)->save('uploads/gallerys/' . $thumbnailname);
-        $data = ['name'   => $thumbnailname,'author_id'=>Auth::user()->id];
+        $data = ['name'   => $thumbnailname, 'author_id' => Auth::user()->id];
 
         Gallery::create($data);
         return redirect()->route('gallery.index');
@@ -77,6 +77,8 @@ class GalleryController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        Gallery::firstWhere('id', $id)->delete();
+
+        return redirect()->back();
     }
 }

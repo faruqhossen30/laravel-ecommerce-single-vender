@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Admin\Admin\RoleController;
 use App\Http\Controllers\Admin\AdminController;
+use App\Http\Controllers\Admin\Ajax\AjaxSubCategoryController;
 use App\Http\Controllers\Admin\BlogController;
 use App\Http\Controllers\Admin\Brand\BrandController;
 use App\Http\Controllers\Admin\DashboardController;
@@ -46,4 +47,8 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
 
     Route::resource('gallery', GalleryController::class);
     Route::resource('gallery-category', GalleryCategoryController::class);
+
+    // Ajax Calling
+    Route::get('ajax/subcategory/{id}', [AjaxSubCategoryController::class, 'subcategoryByCategoryId']);
 });
+
