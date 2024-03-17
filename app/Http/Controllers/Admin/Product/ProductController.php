@@ -30,7 +30,7 @@ class ProductController extends Controller
     {
         $categories    = Category::get();
         $subcategories = SubCategory::get();
-        $thumbnails  = Gallery::get();
+        $thumbnails  = Gallery::paginate(8);
         return view('admin.product.create',compact('categories','subcategories','thumbnails'));
 
     }
