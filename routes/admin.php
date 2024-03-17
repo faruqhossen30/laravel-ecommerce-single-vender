@@ -16,6 +16,10 @@ use App\Http\Controllers\Admin\Product\CategoryController;
 use App\Http\Controllers\Admin\Product\ColorController;
 use App\Http\Controllers\Admin\Product\ProductController;
 use App\Http\Controllers\Admin\Product\SubCategoryController;
+use App\Http\Controllers\Admin\Setting\ChatSectionController;
+use App\Http\Controllers\Admin\Setting\SideSettingController;
+use App\Http\Controllers\Admin\Setting\SiteSettingController;
+use App\Http\Controllers\Admin\SettingController;
 use App\Http\Controllers\Admin\UserController;
 
 
@@ -50,5 +54,11 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
 
     // Ajax Calling
     Route::get('ajax/subcategory/{id}', [AjaxSubCategoryController::class, 'subcategoryByCategoryId']);
+
+    Route::group(['prefix' => 'setting'], function () {
+        Route::get('/',[SettingController::class,'index'])->name('settingpage');
+        Route::get('/site-setting',[SiteSettingController::class,'sitesetting'])->name('sitesetting');
+        Route::get('/chat-section',[ChatSectionController::class,'chatsection'])->name('chatsection');
+    });
 });
 
