@@ -47,6 +47,7 @@ Route::middleware('auth')->group(function () {
 
 Route::group(['prefix'=>'ajax'], function(){
     Route::get('galleries', [GalleryAjaxController::class, 'getGallery'])->name('ajax.galleries');
+    Route::get('galleries/paginate', [GalleryAjaxController::class, 'getPaginateGallery']);
 });
 
 require __DIR__.'/auth.php';
