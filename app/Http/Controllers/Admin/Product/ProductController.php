@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin\Product;
 
 use App\Http\Controllers\Controller;
 use App\Models\Admin\Gallery;
+use App\Models\Admin\Product\Attribute;
 use App\Models\Admin\Product\Category;
 use App\Models\Admin\Product\Product;
 use App\Models\Admin\Product\SubCategory;
@@ -17,6 +18,7 @@ class ProductController extends Controller
     /**
      * Display a listing of the resource.
      */
+
     public function index()
     {
         $products = Product::latest()->paginate('10');
@@ -31,7 +33,9 @@ class ProductController extends Controller
         $categories    = Category::get();
         $subcategories = SubCategory::get();
         $thumbnails  = Gallery::paginate(8);
-        return view('admin.product.create',compact('categories','subcategories','thumbnails'));
+        $attributes = Attribute::with('values')->get();
+        // return $attributes;
+        return view('admin.product.create',compact('categories','subcategories','thumbnails','attributes'));
 
     }
 
@@ -59,13 +63,6 @@ class ProductController extends Controller
             ]
         );
 
-        $thumbnailname = null;
-        if ($request->file('thumbnail')) {
-            $imagethumbnail = $request->file('thumbnail');
-            $extension = $imagethumbnail->getClientOriginalExtension();
-            $thumbnailname = Str::uuid() . '.' . $extension;
-            Image::make($imagethumbnail)->save('uploads/products/' . $thumbnailname);
-        }
         $data = [
             'title'          => $request->title,
             'slug'           => Str::slug($request->title),

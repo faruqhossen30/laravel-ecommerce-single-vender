@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AboutController;
+use App\Http\Controllers\Ajax\AttributeValueSelectAjaxController;
 use App\Http\Controllers\Ajax\GalleryAjaxController;
 use App\Http\Controllers\ArticlesController;
 use App\Http\Controllers\BlogComtroller;
@@ -48,6 +49,7 @@ Route::middleware('auth')->group(function () {
 Route::group(['prefix'=>'ajax'], function(){
     Route::get('galleries', [GalleryAjaxController::class, 'getGallery'])->name('ajax.galleries');
     Route::get('galleries/paginate', [GalleryAjaxController::class, 'getPaginateGallery']);
+    Route::get('attribute/select', [AttributeValueSelectAjaxController::class, 'attributeValue'])->name('ajax.attribute');
 });
 
 require __DIR__.'/auth.php';

@@ -7,7 +7,7 @@ use App\Models\Admin\Product\Attribute;
 use App\Models\Admin\Product\AttributeValue;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-
+use Illuminate\Support\Str;
 class AttributeValueController extends Controller
 {
     /**
@@ -38,6 +38,7 @@ class AttributeValueController extends Controller
         AttributeValue::create([
             'attribute_id'=> $id,
             'name'=> $request->name,
+            'slug' =>Str::slug($request->name),
             'description'=> $request->name,
             'author_id'=> Auth::user()->id,
         ]);
@@ -74,7 +75,8 @@ class AttributeValueController extends Controller
         ]);
 
         AttributeValue::firstWhere('id', $id)->update([
-            'name' => $request->name
+            'name' => $request->name,
+            'slug' =>Str::slug($request->name),
 
         ]);
         return redirect()->back();

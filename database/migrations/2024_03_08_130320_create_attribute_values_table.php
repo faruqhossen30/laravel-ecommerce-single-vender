@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('attribute_id')->constrained('attributes')->onDelete('cascade');
             $table->string('name');
+            $table->string('slug');
             $table->string('description')->nullable();
             $table->unsignedBigInteger('author_id');
             $table->timestamps();

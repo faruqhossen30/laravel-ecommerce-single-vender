@@ -18,6 +18,26 @@
                         <x-form.input name="price" type="number" label="Price" />
                         <x-form.input name="quantity" type="number" label="Quantity" />
                         <x-form.input name="puk_code" label="PUK Code" />
+                        <div
+                            class="py-3 flex items-center text-sm text-gray-800 before:flex-[1_1_0%] before:border-t before:border-gray-200 before:me-6 after:flex-[1_1_0%] after:border-t after:border-gray-200 after:ms-6 dark:text-white dark:before:border-gray-600 dark:after:border-gray-600">
+                            Attributes</div>
+                        {{-- Select Attributes --}}
+                        <div class="grid grid-cols-12 items-center border dark:border-gray-700 p-2">
+                            <label for="input-label"
+                                class=" col-span-3 text-sm font-medium mb-2 dark:text-white">Attributes</label>
+                            <select name="attribute_ids[]"
+                                class="col-span-9 py-3 px-4 pe-9 block w-full border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400 dark:focus:ring-gray-600 select-colors"
+                                multiple>
+                                <option>Chose</option>
+                                @foreach ($attributes as $attribute)
+                                    <option value="{{ $attribute->id }}">{{ $attribute->name }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+
+                        <div id="attributesDiv">
+
+                        </div>
                     </div>
                     <div class="col-span-4 pt-1 space-y-2">
                         {{-- <x-form.select name="category_id" label="Select Category" :data="$categories" /> --}}
@@ -71,9 +91,11 @@
                         <button type="button" onclick="showModal()"
                             class="py-3 px-4 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-gray-200 bg-white text-gray-500 shadow-sm hover:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-800 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600">
 
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="m2.25 15.75 5.159-5.159a2.25 2.25 0 0 1 3.182 0l5.159 5.159m-1.5-1.5 1.409-1.409a2.25 2.25 0 0 1 3.182 0l2.909 2.909m-18 3.75h16.5a1.5 1.5 0 0 0 1.5-1.5V6a1.5 1.5 0 0 0-1.5-1.5H3.75A1.5 1.5 0 0 0 2.25 6v12a1.5 1.5 0 0 0 1.5 1.5Zm10.5-11.25h.008v.008h-.008V8.25Zm.375 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Z" />
-                              </svg>
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                                stroke="currentColor" class="w-6 h-6">
+                                <path stroke-linecap="round" stroke-linejoin="round"
+                                    d="m2.25 15.75 5.159-5.159a2.25 2.25 0 0 1 3.182 0l5.159 5.159m-1.5-1.5 1.409-1.409a2.25 2.25 0 0 1 3.182 0l2.909 2.909m-18 3.75h16.5a1.5 1.5 0 0 0 1.5-1.5V6a1.5 1.5 0 0 0-1.5-1.5H3.75A1.5 1.5 0 0 0 2.25 6v12a1.5 1.5 0 0 0 1.5 1.5Zm10.5-11.25h.008v.008h-.008V8.25Zm.375 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Z" />
+                            </svg>
 
                             Image Gallery
                         </button>
@@ -96,7 +118,6 @@
                             </template>
 
                         </div>
-
                     </div>
 
                 </div>
@@ -127,6 +148,31 @@
     <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
     <script>
+        $('.select-colors').select2()
+            // .on('change.select', function(e, value) {
+            //     let items = $(this).val();
+            //     // let id = e.target.value;
+            //     $('#attributesDiv').empty();
+            //     $.each(items, function(index, value) {
+            //         $.ajax({
+            //             url: '{{ route('ajax.attribute') }}',
+            //             data: {
+            //                 attribute_id: value
+            //             },
+            //             success: function(res) {
+            //                 // console.log(res);
+            //                 $('#attributesDiv').append(res)
+            //             }
+            //         });
+            //     });
+            // });
+
+
+        // @foreach ($attributes as $attribute)
+        //     $('.select-{{ $attribute->slug }}').select2();
+        // @endforeach
+    </script>
+    <script>
         ClassicEditor
             .create(document.querySelector('#editor'))
             .catch(error => {
@@ -146,8 +192,11 @@
                         console.log(res.data)
                     })
             },
-            checkedImage(obj) {
+            attributeItemsChange() {
+                console.log(this.attributeItems);
+            },
 
+            checkedImage(obj) {
                 const index = this.images.findIndex(item => item.id === obj.id); // Assuming 'id' is unique
                 if (index !== -1) {
                     // If the object with the same id exists, remove it
