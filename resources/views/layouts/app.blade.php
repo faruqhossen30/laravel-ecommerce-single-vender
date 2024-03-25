@@ -12,8 +12,7 @@
 <body class="bg-gray-100 ">
 
 @include('layouts.header')
-
-    @yield('home')
+    @yield('content')
     @yield('single')
     @yield('order')
     @yield('login')

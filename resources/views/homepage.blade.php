@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @section('title', 'E-Commerce | Home')
-@section('home')
+@section('content')
 <section class="container grid grid-cols-6 gap-8 py-6 mx-auto">
     <div class="col-span-6 lg:col-span-4">
         <div id="default-carousel" class="relative w-full" data-carousel="slide">

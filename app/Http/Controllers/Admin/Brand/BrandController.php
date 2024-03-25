@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 use Image;
+
 class BrandController extends Controller
 {
     /**
@@ -16,7 +17,7 @@ class BrandController extends Controller
     public function index()
     {
         $brands = Brand::latest()->paginate(10);
-       return view('admin.product.brand.index',compact('brands'));
+        return view('admin.product.brand.index', compact('brands'));
     }
 
     /**
@@ -35,23 +36,16 @@ class BrandController extends Controller
     {
         $request->validate(
             [
-                'name'        => 'required',
+                'name' => 'required',
             ]
         );
 
-        $thumbnailname = null;
-        if ($request->file('thumbnail')) {
-            $imagethumbnail = $request->file('thumbnail');
-            $extension = $imagethumbnail->getClientOriginalExtension();
-            $thumbnailname = Str::uuid() . '.' . $extension;
-            Image::make($imagethumbnail)->save('uploads/brands/' . $thumbnailname);
-        }
         $data = [
             'name'      => $request->name,
             'slug'      => Str::slug($request->name),
             'author_id' => Auth::user()->id,
             'status'    => $request->status,
-            'thumbnail' => $thumbnailname,
+            'thumbnail' => $request->thumbnail
         ];
 
         Brand::create($data);
@@ -73,7 +67,7 @@ class BrandController extends Controller
     public function edit(string $id)
     {
         $brand = Brand::where('id', $id)->first();
-        return view('admin.product.brand.edit',compact('brand'));
+        return view('admin.product.brand.edit', compact('brand'));
     }
 
     /**

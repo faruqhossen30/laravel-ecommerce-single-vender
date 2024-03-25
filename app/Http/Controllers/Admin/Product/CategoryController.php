@@ -39,19 +39,11 @@ class CategoryController extends Controller
             'name'=>'required'
         ]);
 
-
-        $thumbnailname = null;
-        if ($request->file('thumbnail')) {
-            $imagethumbnail = $request->file('thumbnail');
-            $extension = $imagethumbnail->getClientOriginalExtension();
-            $thumbnailname = Str::uuid() . '.' . $extension;
-            Image::make($imagethumbnail)->save('uploads/category/' . $thumbnailname);
-        }
         $data=[
             'name'=> $request->name,
             'slug'=> Str::slug($request->name),
             'author_id'=> Auth::user()->id,
-            'thumbnail'=> $thumbnailname,
+            'thumbnail'=> $request->thumbnail,
         ];
 
         Category::create($data);

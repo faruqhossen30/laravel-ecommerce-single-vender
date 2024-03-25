@@ -11,12 +11,9 @@
                     <form action="{{ route('brand.store') }}" method="POST" enctype="multipart/form-data">
                         @csrf
                         <x-form.input label="Brand Name" name="name" />
-                        <div class="col-span-3 pt-1 space-y-2">
-                            <label for="thumbnail"
-                                class="text-gray-500 dark:text-gray-500 text-sm font-medium">Image</label>
-                            <input name="thumbnail" class="dropify" type="file" id="myDropify">
-                        </div>
                         <x-form.select-status />
+                        <x-form.thumbnail-single />
+                        @include('admin.inc.modal.photo-gallery')
 
                         <x-form.submit-button />
                     </form>

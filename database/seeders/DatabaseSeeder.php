@@ -22,7 +22,8 @@ class DatabaseSeeder extends Seeder
             CategorySeeder::class,
             PermissionSeeder::class,
             AttributeSeeder::class,
-            GallerySeeder::class
+            GallerySeeder::class,
+            BrandSeeder::class
         ]);
         \App\Models\User::factory(50)->create();
     }
