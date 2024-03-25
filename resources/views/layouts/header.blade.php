@@ -78,7 +78,7 @@
         <div class="order-2 col-span-4 lg:order-1">
             <span class="inline-block">
                 <a href="{{ route('homepage') }}">
-                    <img src="{{ asset('img/logo-2023-11-28-02-08-58-2270.png') }}" class="w-48 h-auto" alt="">
+                    <img src="{{ asset('img/curlwarelogo.png') }}" class="w-48 h-auto" alt="">
                 </a>
             </span>
         </div>

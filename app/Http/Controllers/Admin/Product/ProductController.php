@@ -51,12 +51,11 @@ class ProductController extends Controller
                  'title'          => 'required',
                  'description'    => 'required',
                  'category_id'    => 'required',
-                 'subcategory_id' => 'required',
                  'discount'       => 'required',
                  'price'          => 'required',
                  'quantity'       => 'required',
-                 'puk_code'       => 'required',
                  'thumbnail'      => 'required',
+                //  'puk_code'       => 'required',
                 //  'is_stock'       => 'required',
 
             ]
