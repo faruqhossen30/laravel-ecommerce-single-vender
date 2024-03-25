@@ -31,7 +31,15 @@ Route::get('terms', [TearmsController::class, 'index'])->name('termspage');
 Route::get('articles',[ArticlesController::class,'index'])->name('articlespage');
 Route::get('faq',[FaqController::class,'index'])->name('faqpage');
 Route::get('contact',[ContuctController::class,'index'])->name('contactpage');
-
+Route::get('/single', function () {
+    return view('shingleproduct');
+});
+Route::get('/order', function () {
+    return view('order');
+});
+Route::get('/login-registation', function () {
+    return view('login-registation');
+})->name('loginpage');
 Route::get('/test', function () {
     return view('test');
 });
