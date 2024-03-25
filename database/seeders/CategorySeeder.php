@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Admin\GalleryCategory;
 use App\Models\Admin\Product\Category;
 use App\Models\Admin\Product\SubCategory;
 use Illuminate\Database\Seeder;
@@ -31,6 +32,14 @@ class CategorySeeder extends Seeder
             ['category_id'=>4,'name'=>'Rack cover'],
             ['category_id'=>4,'name'=>'Mat']
         ];
+
+        $gallery_categories = array(
+            array('name' => 'Product', 'slug' => 'product', 'author_id' => '1'),
+            array('name' => 'Slider', 'slug' => 'slider', 'author_id' => '1'),
+            array('name' => 'Thumbnail', 'slug' => 'thumbnail', 'author_id' => '1'),
+            array('name' => 'Blog', 'slug' => 'blog', 'author_id' => '1')
+        );
+        GalleryCategory::insert($gallery_categories);
 
         foreach($cats as $cat){
             Category::create([

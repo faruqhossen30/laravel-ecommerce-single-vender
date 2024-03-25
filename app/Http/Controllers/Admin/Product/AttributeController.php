@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Admin\Product\Attribute;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
 
 class AttributeController extends Controller
 {
@@ -38,6 +39,7 @@ class AttributeController extends Controller
 
         Attribute::create([
             'name' => $request->name,
+            'slug' =>Str::slug($request->name),
             'author_id' => Auth::user()->id,
         ]);
         return redirect()->route('attribute.index');
@@ -70,7 +72,8 @@ class AttributeController extends Controller
         ]);
 
         Attribute::firstWhere('id', $id)->update([
-            'name' => $request->name
+            'name' => $request->name,
+            'slug' =>Str::slug($request->name),
         ]);
         return redirect()->route('attribute.index');
     }

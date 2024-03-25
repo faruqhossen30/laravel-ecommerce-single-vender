@@ -41,17 +41,15 @@
 
                                         <td
                                             class="px-6 py-4 text-sm font-medium text-gray-800 whitespace-nowrap dark:text-gray-200">
-                                            <img src="{{ asset('uploads/products/' . $product->thumbnail) }}" class="w-auto h-6"
-                                                alt="">
+                                            <img src="{{ asset('uploads/galleries/' . $product->thumbnail) }}" class="w-auto h-6"
+                                                alt="Thumbnail">
                                         </td>
                                         <td
                                             class="px-6 py-4 text-sm font-medium text-gray-800 whitespace-nowrap dark:text-gray-200">
                                             {{ $product->title }}
                                         </td>
                                         <td class="px-6 py-4 text-sm font-medium whitespace-nowrap text-end">
-
                                             <x-table.crudactionbutton route="sub-category" :id="$product->id" />
-
                                         </td>
 
                                     </tr>

@@ -23,6 +23,7 @@ class Product extends Model
         'quantity',
         'puk_code',
         'thumbnail',
+        'slider',
         'status',
         'is_stock'
     ];
