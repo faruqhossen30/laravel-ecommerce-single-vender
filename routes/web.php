@@ -49,6 +49,10 @@ Route::middleware('auth')->group(function () {
 Route::group(['prefix'=>'ajax'], function(){
     Route::get('galleries', [GalleryAjaxController::class, 'getGallery'])->name('ajax.galleries');
     Route::get('galleries/paginate', [GalleryAjaxController::class, 'getPaginateGallery']);
+    // Multi Photo Modal
+    Route::get('multi-photo/galleries', [GalleryAjaxController::class, 'getMultiPhotoGallery'])->name('ajax.multiphto.galleries');
+    Route::get('multi-photo/galleries/paginate', [GalleryAjaxController::class, 'getPaginateMultiPhotoGallery']);
+
     Route::get('attribute/select', [AttributeValueSelectAjaxController::class, 'attributeValue'])->name('ajax.attribute');
 });
 

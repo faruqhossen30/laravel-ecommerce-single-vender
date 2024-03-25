@@ -34,7 +34,6 @@ class ProductController extends Controller
         $subcategories = SubCategory::get();
         $thumbnails  = Gallery::paginate(8);
         $attributes = Attribute::with('values')->get();
-        // return $attributes;
         return view('admin.product.create',compact('categories','subcategories','thumbnails','attributes'));
 
     }
@@ -44,7 +43,7 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        return $request->all();
+        // return $request->all();
 
 
         $request->validate(
@@ -79,7 +78,8 @@ class ProductController extends Controller
             'is_stock'       => $request->is_stock,
             'status'         => $request->status,
             'discount_type'  => $request->discount_type,
-            'thumbnail'      => $thumbnailname,
+            'thumbnail'      => $request->thumbnail,
+            'slider'         => json_encode($request->slider),
 
         ];
 

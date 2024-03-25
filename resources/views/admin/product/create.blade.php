@@ -11,17 +11,22 @@
 
                 <div class="grid grid-cols-12 gap-4">
                     <div class="col-span-8 space-y-2">
-                        <x-form.input name="title" label="Title" />
+                        <x-form.input name="title" label="Product Title" />
                         <label for="description"
                             class="text-sm font-medium text-gray-500 dsark:text-gray-500">Description</label>
-                        <textarea class="" name="description" id="editor" cols="30" rows="10"></textarea>
+                        <div>
+                            <textarea class="" name="description" id="editor" cols="30" rows="10"></textarea>
+                            @error('description')
+                                <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
+                            @enderror
+                        </div>
                         <x-form.input name="price" type="number" label="Price" />
                         <x-form.input name="quantity" type="number" label="Quantity" />
                         <x-form.input name="puk_code" label="PUK Code" />
-                        <div
+                        {{-- <div
                             class="py-3 flex items-center text-sm text-gray-800 before:flex-[1_1_0%] before:border-t before:border-gray-200 before:me-6 after:flex-[1_1_0%] after:border-t after:border-gray-200 after:ms-6 dark:text-white dark:before:border-gray-600 dark:after:border-gray-600">
                             Attributes</div>
-                        {{-- Select Attributes --}}
+
                         <div class="grid grid-cols-12 items-center border dark:border-gray-700 p-2">
                             <label for="input-label"
                                 class=" col-span-3 text-sm font-medium mb-2 dark:text-white">Attributes</label>
@@ -37,7 +42,7 @@
 
                         <div id="attributesDiv">
 
-                        </div>
+                        </div> --}}
                     </div>
                     <div class="col-span-4 pt-1 space-y-2">
                         {{-- <x-form.select name="category_id" label="Select Category" :data="$categories" /> --}}
@@ -72,25 +77,22 @@
                             @enderror
                         </div>
 
-                        <label for="status"
-                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Status</label>
-                        <select name="status" id="status"
-                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                            <option value="active">active</option>
-                            <option value="draft">draft</option>
-                        </select>
+
 
                         <label for="discount_type"
                             class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Status</label>
                         <select name="discount_type" id="discount_type"
                             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                            <option value="flat">flat</option>
-                            <option value="parcentence">parcentence</option>
+                            <option value="flat">Flat</option>
+                            <option value="parcentence">Parcentence</option>
                         </select>
-                        <x-form.input name="discount" label="Discount" />
-                        <button type="button" onclick="showModal()"
-                            class="py-3 px-4 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-gray-200 bg-white text-gray-500 shadow-sm hover:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-800 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600">
+                        <x-form.input name="discount" type="number" label="Discount" />
+                        <x-form.select-status-draft name="status" label="Status" />
+                        <x-form.thumbnail-single />
 
+
+                        <button type="button" onclick="showMultiPhotoModal()"
+                            class="py-3 w-full px-4 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-gray-200 bg-white text-gray-500 shadow-sm hover:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-800 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                                 stroke="currentColor" class="w-6 h-6">
                                 <path stroke-linecap="round" stroke-linejoin="round"
@@ -100,28 +102,15 @@
                             Image Gallery
                         </button>
 
-
-                        <div class="space-y-2" x-model="images">
-                            <template x-for="image in images" :key="image.id">
-                                <div class="flex items-center justify-between border dark:border-gray-800">
-                                    <input type="hidden" :value="image.id" name="images[]">
-                                    <img :src="`${window.location.origin}/uploads/gallerys/${image.name}`" class="w-10 h-10"
-                                        alt="Image">
-                                    <span class="px-4 text-red-500 cursor-pointer" x-on:click="checkedImage(image)">
-                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                            stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
-                                            <path stroke-linecap="round" stroke-linejoin="round"
-                                                d="m14.74 9-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 0 1-2.244 2.077H8.084a2.25 2.25 0 0 1-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 0 0-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 0 1 3.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 0 0-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 0 0-7.5 0" />
-                                        </svg>
-                                    </span>
-                                </div>
-                            </template>
+                        <div class="space-y-2" id="photosDiv">
 
                         </div>
+
                     </div>
 
                 </div>
                 @include('admin.inc.modal.photo-gallery')
+                @include('admin.inc.modal.multi-photo-gallery')
                 <x-form.submit-button />
             </form>
         </div>
@@ -148,7 +137,8 @@
     <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
     <script>
-        $('.select-colors').select2()
+        $(document).ready(function() {
+            $('.select-colors').select2()
             // .on('change.select', function(e, value) {
             //     let items = $(this).val();
             //     // let id = e.target.value;
@@ -168,9 +158,54 @@
             // });
 
 
-        // @foreach ($attributes as $attribute)
-        //     $('.select-{{ $attribute->slug }}').select2();
-        // @endforeach
+            var photos = [];
+            $(document).on('click', 'input[name="images"]', function(e) {
+                let photo = $(this).val();
+                pushUnique(photos, photo)
+                console.log('click', photo);
+                generatePhotoInput();
+            });
+
+            function pushUnique(arr, value) {
+                // Check if the value already exists in the array
+                const index = arr.indexOf(value);
+                // If the value exists, remove it
+                if (index !== -1) {
+                    arr.splice(index, 1);
+                } else {
+                    // Push the new value into the array
+                    arr.push(value);
+                }
+
+            }
+
+            function removePhoto(value){
+                pushUnique(photos, value);
+                generatePhotoInput();
+            }
+
+            function generatePhotoInput() {
+                $('#photosDiv').empty();
+                $.each(photos, function(index, value) {
+                    $('#photosDiv').append(
+                        `
+                    <div class="flex items-center justify-between border dark:border-gray-800">
+                        <input type="hidden" value="${value}" name="slider[]">
+                        <img src="${window.location.origin}/uploads/galleries/${value}" class="w-10 h-10"
+                            alt="Image">
+                        <span class="px-4 text-red-500 cursor-pointer" onclick="removePhoto(${value})">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
+                                <path stroke-linecap="round" stroke-linejoin="round"
+                                    d="m14.74 9-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 0 1-2.244 2.077H8.084a2.25 2.25 0 0 1-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 0 0-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 0 1 3.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 0 0-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 0 0-7.5 0" />
+                            </svg>
+                        </span>
+                    </div>
+                    `
+                    )
+                });
+            }
+        })
     </script>
     <script>
         ClassicEditor
@@ -210,6 +245,7 @@
             },
         }
     </script>
+    {{--
 
     <script>
         var myModal = document.getElementById("modalEl");
@@ -267,5 +303,5 @@
                 }
             })
         }
-    </script>
+    </script> --}}
 @endpush
