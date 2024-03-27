@@ -11,6 +11,7 @@ use App\Http\Controllers\FaqController;
 use App\Http\Controllers\HomepageController;
 use App\Http\Controllers\PricepageController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\SingleProductpageController;
 use App\Http\Controllers\TearmsController;
 use Illuminate\Support\Facades\Route;
 
@@ -34,8 +35,10 @@ Route::get('articles',[ArticlesController::class,'index'])->name('articlespage')
 Route::get('faq',[FaqController::class,'index'])->name('faqpage');
 Route::get('contact',[ContuctController::class,'index'])->name('contactpage');
 Route::get('/single', function () {
-    return view('shingleproduct');
+    return view('singleproduct');
 });
+Route::get('/single-product/{id}',[SingleProductpageController::class,'singleproduct'])->name('single.product.page');
+
 Route::get('/order', function () {
     return view('order');
 });

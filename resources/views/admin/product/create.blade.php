@@ -62,6 +62,7 @@
                             @enderror
                         </div>
 
+
                         <div class="py-1">
                             <label for="subcategory_id" class="text-gray-500 dark:text-gray-500">Sub
                                 Category</label>
@@ -77,16 +78,53 @@
                             @enderror
                         </div>
 
+                        <div class="py-1">
+                            <label for="color_id" class="text-gray-500 dark:text-gray-500">Color</label>
+                            <select name="color_id" id="color_id" x-model="color_id" x-on:change="catChange"
+                                class="block w-full px-4 py-3 text-sm border-gray-200 rounded-lg pe-9 focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400 dark:focus:ring-gray-600">
+                                <option value="">Select</option>
+                                @foreach ($categories as $category)
+                                    <option value="{{ $category->id }}">{{ $category->name }}</option>
+                                @endforeach
+                            </select>
+                            @error('category_id')
+                                <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
+                            @enderror
+                        </div>
+                        <div>
+                            <label for="Discount"
+                                class="block text-sm  mb-2 dark:text-white">Discount</label>
+                            <div class="relative">
+                                <input type="number" id="hs-inline-leading-pricing-select-label" name="discount"
+                                    class="py-3 px-4 ps-9 pe-20 block w-full border-gray-200 shadow-sm rounded-lg text-sm focus:z-10 focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400 dark:focus:ring-gray-600"
+                                    placeholder="0.00">
+                                <div class="absolute inset-y-0 start-0 flex items-center pointer-events-none z-20 ps-4">
+                                    <span class="text-gray-500  font-semibold"><strong>৳</strong></span>
+                                </div>
+                                <div class="absolute inset-y-0 end-0 flex items-center text-gray-500 pe-px">
+                                    <label for="discount_type" class="sr-only">Currency</label>
+                                    <select id="discount_type" name="discount_type"
+                                        class="block w-full border-transparent rounded-lg focus:ring-blue-600 focus:border-blue-600 dark:bg-gray-800">
+                                        <option>Flat</option>
+                                        <option>Parcentence</option>
+
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
 
 
-                        <label for="discount_type"
+
+                        {{-- <label for="discount_type"
                             class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Status</label>
                         <select name="discount_type" id="discount_type"
                             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                             <option value="flat">Flat</option>
                             <option value="parcentence">Parcentence</option>
-                        </select>
-                        <x-form.input name="discount" type="number" label="Discount" />
+                        </select> --}}
+
+
+                        {{-- <x-form.input name="discount" type="number" label="Discount" /> --}}
                         <x-form.select-status-draft name="status" label="Status" />
                         <x-form.thumbnail-single />
 
@@ -157,43 +195,45 @@
             //     });
             // });
 
+        })
+    </script>
+    <script>
+        var photos = [];
+        $(document).on('click', 'input[name="images"]', function(e) {
+            let photo = $(this).val();
+            pushUnique(photos, photo)
+            console.log('click', photo);
+            generatePhotoInput();
+        });
 
-            var photos = [];
-            $(document).on('click', 'input[name="images"]', function(e) {
-                let photo = $(this).val();
-                pushUnique(photos, photo)
-                console.log('click', photo);
-                generatePhotoInput();
-            });
-
-            function pushUnique(arr, value) {
-                // Check if the value already exists in the array
-                const index = arr.indexOf(value);
-                // If the value exists, remove it
-                if (index !== -1) {
-                    arr.splice(index, 1);
-                } else {
-                    // Push the new value into the array
-                    arr.push(value);
-                }
-
+        function pushUnique(arr, value) {
+            // Check if the value already exists in the array
+            const index = arr.indexOf(value);
+            // If the value exists, remove it
+            if (index !== -1) {
+                arr.splice(index, 1);
+            } else {
+                // Push the new value into the array
+                arr.push(value);
             }
 
-            function removePhoto(value){
-                pushUnique(photos, value);
-                generatePhotoInput();
-            }
+        }
 
-            function generatePhotoInput() {
-                $('#photosDiv').empty();
-                $.each(photos, function(index, value) {
-                    $('#photosDiv').append(
-                        `
+        function removePhoto(value) {
+            pushUnique(photos, value);
+            generatePhotoInput();
+        }
+
+        function generatePhotoInput() {
+            $('#photosDiv').empty();
+            $.each(photos, function(index, value) {
+                $('#photosDiv').append(
+                    `
                     <div class="flex items-center justify-between border dark:border-gray-800">
                         <input type="hidden" value="${value}" name="slider[]">
                         <img src="${window.location.origin}/uploads/galleries/${value}" class="w-10 h-10"
                             alt="Image">
-                        <span class="px-4 text-red-500 cursor-pointer" onclick="removePhoto(${value})">
+                        <span class="px-4 text-red-500 cursor-pointer" onclick="removePhoto('${value}')">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                 stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
                                 <path stroke-linecap="round" stroke-linejoin="round"
@@ -202,10 +242,9 @@
                         </span>
                     </div>
                     `
-                    )
-                });
-            }
-        })
+                )
+            });
+        }
     </script>
     <script>
         ClassicEditor

@@ -1,3 +1,4 @@
+
 @extends('layouts.app')
 @section('title', 'E-Commerce | Home')
 @section('content')
@@ -118,7 +119,7 @@
                     @foreach ($category->products as $product)
                         <div class="col-span-4 space-y-2 lg:col-span-2 group hover:shadow-lg">
                             <div class="overflow-hidden bg-white">
-                                <a href="#">
+                                <a href="{{route('single.product.page', $product->id)}}">
                                     <img src="{{ asset('uploads/galleries/'.$product->thumbnail) }}"
                                         class="h-[280px] lg:h-[350px] w-[248px] group-hover:scale-125 transition-all duration-1000"
                                         alt="">

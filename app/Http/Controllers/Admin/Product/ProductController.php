@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Admin\Gallery;
 use App\Models\Admin\Product\Attribute;
 use App\Models\Admin\Product\Category;
+use App\Models\Admin\Product\Color;
 use App\Models\Admin\Product\Product;
 use App\Models\Admin\Product\SubCategory;
 use Illuminate\Http\Request;
@@ -32,9 +33,10 @@ class ProductController extends Controller
     {
         $categories    = Category::get();
         $subcategories = SubCategory::get();
-        $thumbnails  = Gallery::paginate(8);
-        $attributes = Attribute::with('values')->get();
-        return view('admin.product.create',compact('categories','subcategories','thumbnails','attributes'));
+        $thumbnails    = Gallery::paginate(8);
+        $attributes    = Attribute::with('values')->get();
+        $colors        = Color::all();
+        return view('admin.product.create',compact('categories','subcategories','thumbnails','attributes','colors'));
 
     }
 

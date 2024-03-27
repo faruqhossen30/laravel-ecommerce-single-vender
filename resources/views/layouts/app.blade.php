@@ -7,6 +7,7 @@
 
     <title>@yield('title', 'E-Commerce')</title>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
+    @stack('styles')
 </head>
 
 <body class="bg-gray-100 ">
@@ -17,6 +18,8 @@
     @yield('order')
     @yield('login')
     @include('layouts.footer')
+
+    @stack('scripts')
 </body>
 
 </html>
