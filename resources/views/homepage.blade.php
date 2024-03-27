@@ -1,4 +1,3 @@
-
 @extends('layouts.app')
 @section('title', 'E-Commerce | Home')
 @section('content')
@@ -98,7 +97,8 @@
         <div class="p-6 bg-white">
             <div class="grid grid-cols-12 gap-4 p-4 bg-gray-100 ">
                 @foreach ($categories as $category)
-                    <a href="#" class="flex flex-col items-center col-span-4 py-6 bg-white lg:col-span-2">
+                    <a href="{{ route('categoryproduct', $category->slug) }}"
+                        class="flex flex-col items-center col-span-4 py-6 bg-white lg:col-span-2">
                         <img src="{{ asset('uploads/galleries/' . $category->thumbnail) }}" alt=""
                             class="w-16 h-auto">
                         <h4 class="p-1 ">Men Jeans</h4>
@@ -106,33 +106,35 @@
                 @endforeach
             </div>
         </div>
-
     </section>
     @foreach ($categories as $category)
         @if (count($category->products))
             <section class="container py-12 mx-auto">
-                <div class="px-3 py-0 lg:py-1 bg-gradient-to-r from-green-300 to-lime-600">
+                <a href="{{ route('categoryproduct', $category->slug) }}"
+                    class="px-3 block py-0 lg:py-1 bg-gradient-to-r from-green-300 to-lime-600">
                     <span
                         class="px-12 text-2xl text-white bg-red-600 rounded-tr-full lg:text-4xl">{{ $category->name }}</span>
-                </div>
-                <div class="grid grid-cols-12 gap-2 py-2">
+                </a>
+                <div class="grid grid-cols-12 gap-2 py-2 owl-carousel product_slider_sell">
                     @foreach ($category->products as $product)
-                        <div class="col-span-4 space-y-2 lg:col-span-2 group hover:shadow-lg">
+                        <div class="col-span-4 space-y-2 lg:col-span-2 group hover:shadow-lg border border-gray-300">
                             <div class="overflow-hidden bg-white">
-                                <a href="{{route('single.product.page', $product->id)}}">
-                                    <img src="{{ asset('uploads/galleries/'.$product->thumbnail) }}"
+                                <a href="{{ route('singleproduct', $product->id) }}">
+                                    <img src="{{ asset('uploads/galleries/' . $product->thumbnail) }}"
                                         class="h-[280px] lg:h-[350px] w-[248px] group-hover:scale-125 transition-all duration-1000"
                                         alt="">
                                 </a>
 
                             </div>
                             <div class="bg-white ">
-                                <button>
-                                    <h2 class="px-2 text-lg font-semibold text-left hover:text-yellow-300">{{$product->title}}</h2>
-                                    <p class="py-2 text-xl font-semibold text-red-600">{{$product->price}} Tk</p>
-                                </button>
+                                <a href="{{ route('singleproduct', $product->id) }}">
+                                    <h2 class="px-2 text-lg font-semibold text-left hover:text-yellow-300">
+                                        {{ $product->title }}</h2>
+                                </a>
+                                <p class="py-2 text-xl font-semibold text-red-600 text-center">{{ $product->price }} Tk
+                                </p>
                                 <div class="p-1 bg-white">
-                                    <div class="p-2 bg-gray-100 ">
+                                    <div class="p-2 bg-gray-200 ">
                                         <a href="#"
                                             class="flex justify-center p-2 space-x-4 text-center text-white bg-red-600">
                                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
@@ -161,67 +163,173 @@
 
 
 
-<section class="container px-2 py-12 mx-auto lg:px-36">
-    <div class="py-2 border-b-2 border-black ">
-        <span class="px-12 py-2 text-3xl font-semibold text-white bg-green-500 rounded-tr-full">Top Brands</span>
-    </div>
-    <div class="flex items-center p-4 bg-white shadow-xl justify-evenly">
-        <a href="#">
-            <img src="{{ asset('img/icon/yellow.png') }}" class="w-20 h-20 " alt="">
-        </a>
-        <a href="#">
-            <img src="{{ asset('img/icon/easy.jpg') }}" class="w-20 h-20 " alt="">
-        </a>
-        <a href="#">
-            <img src="{{ asset('img/icon/lereve-3.jpg') }}" class="w-20 h-20 " alt="">
-        </a>
-        <a href="#">
-            <img src="{{ asset('img/icon/twelve.png') }}" class="w-20 h-20 " alt="">
-        </a>
-        <a href="#">
-            <img src="{{ asset('img/icon/aarong.webp') }}" class="w-20 h-20 " alt="">
-        </a>
-        <a href="#">
-            <img src="{{ asset('img/icon/another.jpg') }}" class="w-20 h-20 " alt="">
-        </a>
-        <a href="#">
-            <img src="{{ asset('img/icon/nirjon.jpg') }}" class="w-20 h-20 " alt="">
-        </a>
-    </div>
-</section>
+    <section class="container px-2 py-12 mx-auto lg:px-36">
+        <div class="py-2 border-b-2 border-black ">
+            <span class="px-12 py-2 text-3xl font-semibold text-white bg-green-500 rounded-tr-full">Top Brands</span>
+        </div>
+        <div class="flex items-center p-4 bg-white shadow-xl justify-evenly">
+            <a href="#">
+                <img src="{{ asset('img/icon/yellow.png') }}" class="w-20 h-20 " alt="">
+            </a>
+            <a href="#">
+                <img src="{{ asset('img/icon/easy.jpg') }}" class="w-20 h-20 " alt="">
+            </a>
+            <a href="#">
+                <img src="{{ asset('img/icon/lereve-3.jpg') }}" class="w-20 h-20 " alt="">
+            </a>
+            <a href="#">
+                <img src="{{ asset('img/icon/twelve.png') }}" class="w-20 h-20 " alt="">
+            </a>
+            <a href="#">
+                <img src="{{ asset('img/icon/aarong.webp') }}" class="w-20 h-20 " alt="">
+            </a>
+            <a href="#">
+                <img src="{{ asset('img/icon/another.jpg') }}" class="w-20 h-20 " alt="">
+            </a>
+            <a href="#">
+                <img src="{{ asset('img/icon/nirjon.jpg') }}" class="w-20 h-20 " alt="">
+            </a>
+        </div>
+    </section>
 
 
 
-<section class="container px-12 py-12 mx-auto lg:px-28">
-    <div class="grid grid-cols-12 gap-8 ">
-        <div class="flex col-span-12 pr-12 space-x-2 border-r-2 lg:col-span-3">
-            <img src="{{ asset('img/icon/truck.png') }}" class="w-12 h-12" alt="">
-            <div>
-                <h4 class="text-xl font-semibold">Free Shipping & Return</h4>
-                <p>All Orders Overs 5 Items</p>
+    <section class="container px-12 py-12 mx-auto lg:px-28">
+        <div class="grid grid-cols-12 gap-8 ">
+            <div class="flex col-span-12 pr-12 space-x-2 border-r-2 lg:col-span-3">
+                <img src="{{ asset('img/icon/truck.png') }}" class="w-12 h-12" alt="">
+                <div>
+                    <h4 class="text-xl font-semibold">Free Shipping & Return</h4>
+                    <p>All Orders Overs 5 Items</p>
+                </div>
+            </div>
+            <div class="flex col-span-12 pr-12 space-x-3 border-r-2 lg:col-span-3">
+                <img src="{{ asset('img/icon/payment.png') }}" class="w-12 h-12" alt="">
+                <div>
+                    <h4 class="text-xl font-semibold">Secure Payment</h4>
+                    <p>We ensure secure payment</p>
+                </div>
+            </div>
+            <div class="flex col-span-12 pr-12 space-x-3 border-r-2 lg:col-span-3">
+                <img src="{{ asset('img/icon/payment.png') }}" class="w-12 h-12" alt="">
+                <div>
+                    <h4 class="text-xl font-semibold">Money Back Guarantee</h4>
+                    <p>Any back withing 15 days</p>
+                </div>
+            </div>
+            <div class="flex col-span-12 pr-12 space-x-3 lg:col-span-3">
+                <img src="{{ asset('img/icon/customer-service.png') }}" class="w-12 h-12" alt="">
+                <div>
+                    <h4 class="text-xl font-semibold">Customer Support</h4>
+                    <p>Call or email us 24/7</p>
+                </div>
             </div>
         </div>
-        <div class="flex col-span-12 pr-12 space-x-3 border-r-2 lg:col-span-3">
-            <img src="{{ asset('img/icon/payment.png') }}" class="w-12 h-12" alt="">
-            <div>
-                <h4 class="text-xl font-semibold">Secure Payment</h4>
-                <p>We ensure secure payment</p>
-            </div>
-        </div>
-        <div class="flex col-span-12 pr-12 space-x-3 border-r-2 lg:col-span-3">
-            <img src="{{ asset('img/icon/payment.png') }}" class="w-12 h-12" alt="">
-            <div>
-                <h4 class="text-xl font-semibold">Money Back Guarantee</h4>
-                <p>Any back withing 15 days</p>
-            </div>
-        </div>
-        <div class="flex col-span-12 pr-12 space-x-3 lg:col-span-3">
-            <img src="{{ asset('img/icon/customer-service.png') }}" class="w-12 h-12" alt="">
-            <div>
-                <h4 class="text-xl font-semibold">Customer Support</h4>
-                <p>Call or email us 24/7</p>
-            </div>
-        </div>
-    </div>
-</section>
+    </section>
 @endsection
+
+
+@push('styles')
+    <link rel="stylesheet" href="{{ asset('css/owl.carousel.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/owl.theme.default.min.css') }}">
+    <style>
+
+        .owl-nav .owl-next {
+            position: absolute;
+            top: calc(35% - 20px);
+            right: 20px;
+            margin-right: -20px !important;
+            width: 40px;
+            height: 40px;
+            opacity: .9;
+            border-radius: 50% !important;
+            background-color: white !important;
+            color: gray !important;
+            --tw-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+            --tw-shadow-colored: 0 4px 6px -1px var(--tw-shadow-color), 0 2px 4px -2px var(--tw-shadow-color);
+            box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+        }
+
+        .owl-nav .owl-prev {
+            position: absolute;
+            top: calc(35% - 20px);
+            left: 0;
+            margin-left: 0px !important;
+            width: 40px;
+            height: 40px;
+            opacity: .9;
+            border-radius: 50% !important;
+            background-color: white !important;
+            color: gray !important;
+            --tw-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+            --tw-shadow-colored: 0 4px 6px -1px var(--tw-shadow-color), 0 2px 4px -2px var(--tw-shadow-color);
+            box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+        }
+
+        .owl-nav .owl-prev:hover {
+            background-color: green !important;
+            color: white !important;
+        }
+
+        .owl-nav .owl-next:hover {
+            background-color: green !important;
+            color: white !important;
+        }
+
+    </style>
+@endpush
+
+@push('scripts')
+    <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
+
+    <script src="{{ asset('js/owl.carousel.min.js') }}"></script>
+    <script>
+        $(document).ready(function() {
+            // $('.owl-carousel').show();
+            $('.product_slider_sell').owlCarousel({
+                items: 1,
+                margin:10, // Set the number of items to show
+                loop: true, // Enable infinite loop
+                autoplay: false, // Enable autoplay
+                autoplayTimeout: 3000, // Set autoplay timeout in milliseconds
+                autoplayHoverPause: true, // Pause autoplay on hover
+                rewind: false,
+                nav: true,
+                responsive: {
+                    0: {
+                        items: 1,
+                    },
+                    340: {
+                        items: 2,
+
+                    },
+                    500: {
+                        items: 2,
+
+                    },
+                    600: {
+                        items: 3
+                    },
+                    870: {
+                        items: 4
+                    },
+                    1070: {
+                        items: 5
+                    },
+                    1200: {
+                        items: 5,
+                        nav: true,
+                    },
+                    1300: {
+                        items: 5,
+                        nav: true,
+                    },
+                    1400: {
+                        items: 6,
+                        nav: true,
+                    }
+                }
+            });
+        });
+    </script>
+@endpush

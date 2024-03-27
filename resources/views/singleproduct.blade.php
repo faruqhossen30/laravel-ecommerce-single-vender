@@ -2,19 +2,33 @@
 @section('title', 'E-Commerce | Home')
 @section('single')
     <section class="container mx-auto">
-        <div class="grid grid-cols-12 px-2 py-1 pt-8 border-b-2 border-blue-400 lg:px-16 lg:py-2">
+        <div class="grid grid-cols-12 gap-5 px-2 py-1 pt-8 border-b-4 border-green-500 lg:px-16 lg:py-2">
             <div class="col-span-12 px-12 lg:col-span-5 lg:px-0">
-                <a href="#" class="py-2">
-                    <img src="{{ asset('uploads/galleries/' . $product->thumbnail) }}"
-                        class="border-4 border-white rounded-lg shadow-md shadow-gray-400 h-[550px] hover:shadow-md hover:shadow-green-500"
-                        alt="">
-                </a>
+                <div id="singleProdutSlider" class="owl-carousel owl-theme">
+                    @if ($product->slider != 'null')
+                        @foreach (json_decode($product->slider) as $key => $item)
+                            <div class="py-2" data-hash="{{ $key }}">
+                                <img src="{{ asset('uploads/galleries/' . $item) }}"
+                                    class="border-4 border-white rounded-lg shadow-md shadow-gray-400 hover:shadow-md hover:shadow-green-500"
+                                    alt="">
+                            </div>
+                        @endforeach
+                    @else
+                        <div class="py-2" >
+                            <img src="{{ asset('uploads/galleries/' . $product->thumbnail) }}"
+                                class="border-4 border-white rounded-lg shadow-md shadow-gray-400 hover:shadow-md hover:shadow-green-500"
+                                alt="">
+                        </div>
+                    @endif
+                </div>
                 @if ($product->slider != 'null')
-                    <div class="py-6 space-x-2 owl-carousel">
-                        @foreach (json_decode($product->slider) as $item)
-                            <button type = "button" class="border-4 item border-white rounded-md shadow-md shadow-gray-300">
-                                <img src = "{{ asset('uploads/galleries/' . $item) }}" class="h-14" alt="">
-                            </button>
+                    <div class="py-6 flex space-x-1">
+                        @foreach (json_decode($product->slider) as $key => $item)
+                            <a href="#{{ $key }}"
+                                class="border-4 item border-white rounded-md shadow-md shadow-gray-300">
+                                <img src = "{{ asset('uploads/galleries/' . $item) }}" class="h-14"
+                                    alt="{{ $product->title }}">
+                            </a>
                         @endforeach
                     </div>
 
@@ -24,9 +38,9 @@
             <div class="col-span-12 lg:col-span-7">
                 <div class="">
                     <div class="px-4 lg:px-0">
-                        <h2 class="text-2xl font-semibold text-green-500 lg:text-3xl">{{$product->title}}</h2>
+                        <h2 class="text-2xl font-semibold text-green-500 lg:text-3xl">{{ $product->title }}</h2>
                         <p class="py-2 text-2xl font-semibold">
-                            Price : <span class="font-normal ">{{$product->price}}</span> tk
+                            Price : <span class="font-normal ">{{ $product->price }}</span> tk
                         </p>
                         <p class="pb-2 ">
                             Select Size :
@@ -98,8 +112,8 @@
                         <div class="text-white ">
                             <a href="#"
                                 class="flex items-center justify-center py-2 mb-6 space-x-3 bg-red-600 rounded-md lg:mb-0">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                    class="bi bi-whatsapp" viewBox="0 0 16 16">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                    fill="currentColor" class="bi bi-whatsapp" viewBox="0 0 16 16">
                                     <path
                                         d="M13.601 2.326A7.85 7.85 0 0 0 7.994 0C3.627 0 .068 3.558.064 7.926c0 1.399.366 2.76 1.057 3.965L0 16l4.204-1.102a7.9 7.9 0 0 0 3.79.965h.004c4.368 0 7.926-3.558 7.93-7.93A7.9 7.9 0 0 0 13.6 2.326zM7.994 14.521a6.6 6.6 0 0 1-3.356-.92l-.24-.144-2.494.654.666-2.433-.156-.251a6.56 6.56 0 0 1-1.007-3.505c0-3.626 2.957-6.584 6.591-6.584a6.56 6.56 0 0 1 4.66 1.931 6.56 6.56 0 0 1 1.928 4.66c-.004 3.639-2.961 6.592-6.592 6.592m3.615-4.934c-.197-.099-1.17-.578-1.353-.646-.182-.065-.315-.099-.445.099-.133.197-.513.646-.627.775-.114.133-.232.148-.43.05-.197-.1-.836-.308-1.592-.985-.59-.525-.985-1.175-1.103-1.372-.114-.198-.011-.304.088-.403.087-.088.197-.232.296-.346.1-.114.133-.198.198-.33.065-.134.034-.248-.015-.347-.05-.099-.445-1.076-.612-1.47-.16-.389-.323-.335-.445-.34-.114-.007-.247-.007-.38-.007a.73.73 0 0 0-.529.247c-.182.198-.691.677-.691 1.654s.71 1.916.81 2.049c.098.133 1.394 2.132 3.383 2.992.47.205.84.326 1.129.418.475.152.904.129 1.246.08.38-.058 1.171-.48 1.338-.943.164-.464.164-.86.114-.943-.049-.084-.182-.133-.38-.232" />
                                 </svg>
@@ -111,133 +125,7 @@
             </div>
         </div>
     </section>
-    <section class="container pt-4 mx-auto">
-        <div class="grid grid-cols-12 lg:gap-8">
-            <div class="col-span-12 px-8 lg:px-0 lg:col-span-9">
-                <div class="py-2 bg-white">
-                    <div class="">
-                        <a href="#"
-                            class="p-2 text-lg font-semibold text-white bg-green-600 border rounded-md">Description</a>
-                        <a href="#" class="p-2 text-lg font-semibold border rounded-md">Review</a>
-                        <a href="#" class="p-2 text-lg font-semibold border rounded-md">Video</a>
-                    </div>
-                    <div class="p-6">
-                        <h2 class="pb-4 text-2xl font-semibold">Descriptions</h2>
-                        <div class="flex">
-                            <div class="flex flex-col space-y-2">
-                                <h4 class="text-base font-semibold">COLOR</h4>
-                                <h4 class="text-base font-semibold">SIZE</h4>
-                                <h4 class="text-base font-semibold">FABRIC</h4>
-                                <h4 class="text-base font-semibold">SLEEVE</h4>
-                                <h4 class="text-base font-semibold">STYLE</h4>
-                                <h4 class="text-base font-semibold">WASH CARE</h4>
-                            </div>
-                            <div class="flex flex-col px-2 space-y-2">
-                                <p>Black</p>
-                                <p>38, 40, 42, 44, 46</p>
-                                <p>Jacquard</p>
-                                <p>Full Sleeve</p>
-                                <p>Regular</p>
-                                <p>Wash separately in mild detergent</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-            <div class="col-span-12 lg:col-span-3 px-4 h-[400px] lg:h-[450px] bg-white overflow-auto ">
-                <h2 class="py-2 text-2xl font-bold text-center border-b border-black lg:py-4">Relate Products</h2>
-                <div class="flex py-4 space-x-4 border-b">
-                    <a href="#">
-                        <img src="{{ asset('uploads/products/black-fitted-viscose-panjabi.jpg') }}" class="w-20 h-24"
-                            alt="">
-                    </a>
-                    <div class="">
-                        <a href="#" class="text-lg font-bold text-green-600">Fitted Panjabi MP-1</a>
-                        <div class="flex py-6 space-x-6">
-                            <span class="font-bold text-red-500">৳ 2350</span>
-                            <a href="#" class="flex items-center space-x-2">
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
-                                    class="w-4 h-4 text-white bg-gray-600 rounded-sm">
-                                    <path fill-rule="evenodd"
-                                        d="M12 3.75a.75.75 0 0 1 .75.75v6.75h6.75a.75.75 0 0 1 0 1.5h-6.75v6.75a.75.75 0 0 1-1.5 0v-6.75H4.5a.75.75 0 0 1 0-1.5h6.75V4.5a.75.75 0 0 1 .75-.75Z"
-                                        clip-rule="evenodd" />
-                                </svg>
-                                <p>view Product</p>
-
-                            </a>
-                        </div>
-                    </div>
-                </div>
-                <div class="flex py-4 space-x-4 border-b">
-                    <a href="#">
-                        <img src="{{ asset('uploads/products/black-fitted-viscose-panjabi.jpg') }}" class="w-20 h-24"
-                            alt="">
-                    </a>
-                    <div class="">
-                        <a href="#" class="text-lg font-bold text-green-600">Fitted Panjabi MP-1</a>
-                        <div class="flex py-6 space-x-6">
-                            <span class="font-bold text-red-500">৳ 2350</span>
-                            <a href="#" class="flex items-center space-x-2">
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
-                                    class="w-4 h-4 text-white bg-gray-600 rounded-sm">
-                                    <path fill-rule="evenodd"
-                                        d="M12 3.75a.75.75 0 0 1 .75.75v6.75h6.75a.75.75 0 0 1 0 1.5h-6.75v6.75a.75.75 0 0 1-1.5 0v-6.75H4.5a.75.75 0 0 1 0-1.5h6.75V4.5a.75.75 0 0 1 .75-.75Z"
-                                        clip-rule="evenodd" />
-                                </svg>
-                                <p>view Product</p>
-
-                            </a>
-                        </div>
-                    </div>
-                </div>
-                <div class="flex py-4 space-x-4 border-b">
-                    <a href="#">
-                        <img src="{{ asset('uploads/products/black-fitted-viscose-panjabi.jpg') }}" class="w-20 h-24"
-                            alt="">
-                    </a>
-                    <div class="">
-                        <a href="#" class="text-lg font-bold text-green-600">Fitted Panjabi MP-1</a>
-                        <div class="flex py-6 space-x-6">
-                            <span class="font-bold text-red-500">৳ 2350</span>
-                            <a href="#" class="flex items-center space-x-2">
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
-                                    class="w-4 h-4 text-white bg-gray-600 rounded-sm">
-                                    <path fill-rule="evenodd"
-                                        d="M12 3.75a.75.75 0 0 1 .75.75v6.75h6.75a.75.75 0 0 1 0 1.5h-6.75v6.75a.75.75 0 0 1-1.5 0v-6.75H4.5a.75.75 0 0 1 0-1.5h6.75V4.5a.75.75 0 0 1 .75-.75Z"
-                                        clip-rule="evenodd" />
-                                </svg>
-                                <p>view Product</p>
-
-                            </a>
-                        </div>
-                    </div>
-                </div>
-                <div class="flex py-4 space-x-4 border-b">
-                    <a href="#">
-                        <img src="{{ asset('uploads/products/black-fitted-viscose-panjabi.jpg') }}" class="w-20 h-24"
-                            alt="">
-                    </a>
-                    <div class="">
-                        <a href="#" class="text-lg font-bold text-green-600">Fitted Panjabi MP-1</a>
-                        <div class="flex py-6 space-x-6">
-                            <span class="font-bold text-red-500">৳ 2350</span>
-                            <a href="#" class="flex items-center space-x-2">
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
-                                    class="w-4 h-4 text-white bg-gray-600 rounded-sm">
-                                    <path fill-rule="evenodd"
-                                        d="M12 3.75a.75.75 0 0 1 .75.75v6.75h6.75a.75.75 0 0 1 0 1.5h-6.75v6.75a.75.75 0 0 1-1.5 0v-6.75H4.5a.75.75 0 0 1 0-1.5h6.75V4.5a.75.75 0 0 1 .75-.75Z"
-                                        clip-rule="evenodd" />
-                                </svg>
-                                <p>view Product</p>
-
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+    @include('inc.product.description-tab')
 @endsection
 
 @push('styles')
@@ -250,50 +138,15 @@
 
     <script src="{{ asset('js/owl.carousel.min.js') }}"></script>
     <script>
-        // $('.owl-carousel').owlCarousel({
-        //     loop: true,
-        //     margin: 10,
-        //     nav: true,
-        //     responsive: {
-        //         0: {
-        //             items: 1
-        //         },
-        //         600: {
-        //             items: 3
-        //         },
-        //         1000: {
-        //             items: 5
-        //         }
-        //     }
-        // })
-
-        var owl = $('.owl-carousel');
+        var owl = $('#singleProdutSlider');
         owl.owlCarousel({
+            items: 1,
             loop: true,
-            nav: true,
-            margin: 10,
-            responsive: {
-                0: {
-                    items: 1
-                },
-                600: {
-                    items: 3
-                },
-                960: {
-                    items: 5
-                },
-                1200: {
-                    items: 6
-                }
-            }
-        });
-        owl.on('mousewheel', '.owl-stage', function(e) {
-            if (e.deltaY > 0) {
-                owl.trigger('next.owl');
-            } else {
-                owl.trigger('prev.owl');
-            }
-            e.preventDefault();
+            margin: 2,
+            center: true,
+            dots: false,
+            URLhashListener: true,
+            startPosition: 'URLHash'
         });
     </script>
 @endpush

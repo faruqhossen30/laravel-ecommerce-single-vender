@@ -1,3 +1,7 @@
+@php
+    use App\Models\Admin\Product\Category;
+    $categories = Category::get();
+@endphp
 <header class="bg-[#199724;]">
     <div class="container grid items-center grid-cols-12 p-4 px-6 mx-auto">
 
@@ -122,7 +126,8 @@
                         <a href="{{ route('loginpage') }}">
                             <h2 class="text-base font-semibold">Account</h2>
                         </a>
-                        <p><a href="{{ route('loginpage') }}" class="text-xs">Login</a> Or <a href="{{ route('loginpage') }}" class="text-xs">Register</a></p>
+                        <p><a href="{{ route('loginpage') }}" class="text-xs">Login</a> Or <a
+                                href="{{ route('loginpage') }}" class="text-xs">Register</a></p>
                     </div>
                 </div>
                 <a href="#" class="flex space-x-1 text-white">
@@ -149,40 +154,12 @@
 <nav class="container mx-auto ">
     <div class="flex-col hidden py-3 text-lg font-semibold bg-white shadow-lg lg:flex px-14 dark:bg-gray-700">
         <ul class="flex flex-row mt-0 space-x-10 text-sm font-medium rtl:space-x-reverse">
-            <li>
-                <a href="#" class="text-gray-900 dark:text-white hover:text-red-600"
-                    aria-current="page">Windbreaker</a>
-            </li>
-            <li>
-                <a href="#" class="text-gray-900 dark:text-white hover:text-red-600">Men Jeans</a>
-            </li>
-            <li>
-                <a href="#" class="text-gray-900 dark:text-white hover:text-red-600">Women's Gown</a>
-            </li>
-            <li>
-                <a href="#" class="text-gray-900 dark:text-white hover:text-red-600">Shoes</a>
-            </li>
-            <li>
-                <a href="#" class="text-gray-900 dark:text-white hover:text-red-600">Jewelry</a>
-            </li>
-            <li>
-                <a href="#" class="text-gray-900 dark:text-white hover:text-red-600">Sharee</a>
-            </li>
-            <li>
-                <a href="#" class="text-gray-900 dark:text-white hover:text-red-600">Kids Zone</a>
-            </li>
-            <li>
-                <a href="#" class="text-gray-900 dark:text-white hover:text-red-600">Men T-shirt</a>
-            </li>
-            <li>
-                <a href="#" class="text-gray-900 dark:text-white hover:text-red-600">Women's Tunic</a>
-            </li>
-            <li>
-                <a href="#" class="text-gray-900 dark:text-white hover:text-red-600">Grocery</a>
-            </li>
-            <li>
-                <a href="#" class="text-gray-900 dark:text-white hover:text-red-600">Formal Shirt</a>
-            </li>
+            @foreach ($categories as $category)
+                <li>
+                    <a href="{{route('categoryproduct', $category->slug)}}" class="text-gray-900 dark:text-white hover:text-red-600"
+                        aria-current="page">{{$category->name}}</a>
+                </li>
+            @endforeach
         </ul>
     </div>
 </nav>

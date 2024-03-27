@@ -5,6 +5,8 @@ use App\Http\Controllers\Ajax\AttributeValueSelectAjaxController;
 use App\Http\Controllers\Ajax\GalleryAjaxController;
 use App\Http\Controllers\ArticlesController;
 use App\Http\Controllers\BlogComtroller;
+use App\Http\Controllers\CategorypageController;
+use App\Http\Controllers\CategoryProductpageController;
 use App\Http\Controllers\ConditionController;
 use App\Http\Controllers\ContuctController;
 use App\Http\Controllers\FaqController;
@@ -27,6 +29,11 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', [HomepageController::class, 'index'])->name('homepage');
+Route::get('/product/{id}',[SingleProductpageController::class,'singleproduct'])->name('singleproduct');
+Route::get('/category/{slug}',[CategoryProductpageController::class,'index'])->name('categoryproduct');
+Route::get('categories',[CategorypageController::class,'index'])->name('categorypage');
+
+
 Route::get('about',[AboutController::class,'index'])->name('aboutpage');
 Route::get('price', [PricepageController::class, 'index'])->name('pricepage');
 // Route::get('blog', [BlogComtroller::class, 'index'])->name('blogpage');
@@ -37,7 +44,6 @@ Route::get('contact',[ContuctController::class,'index'])->name('contactpage');
 Route::get('/single', function () {
     return view('singleproduct');
 });
-Route::get('/single-product/{id}',[SingleProductpageController::class,'singleproduct'])->name('single.product.page');
 
 Route::get('/order', function () {
     return view('order');

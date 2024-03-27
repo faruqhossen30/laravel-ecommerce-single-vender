@@ -11,9 +11,11 @@
 </head>
 
 <body class="bg-gray-100 ">
-
-@include('layouts.header')
-    @yield('content')
+    @include('layouts.header')
+    <main>
+        @yield('breadcrumb')
+        @yield('content')
+    </main>
     @yield('single')
     @yield('order')
     @yield('login')

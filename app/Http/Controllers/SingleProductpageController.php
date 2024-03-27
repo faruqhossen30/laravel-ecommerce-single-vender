@@ -10,10 +10,6 @@ class SingleProductpageController extends Controller
     public function singleproduct( Request $request ,$id ){
 
         $product=Product::where('id',$id)->first();
-        // return $product;
-
         return view('singleproduct',compact('product'));
-
-        // return "abc";
     }
 }
