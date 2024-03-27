@@ -109,11 +109,10 @@
         </div>
     </div>
 </section>
-<section class="bg-[#199724;]">
-    <div class="container text-center text-white">
-        <a href="#">
-            <p>© 2022. All Rights Reserved By Softitglobal & Developed By SoftitGlobal.com</p>
+<section class="bg-[#199724] ">
+    <div class="text-center text-white container mx-auto py-2">
+        <a href="https://curlware.com/">
+            <p>© Copyright <?php echo date('Y') ?>. All Rights Reserved & & Developed By CurlWare</p>
         </a>
     </div>
-
 </section>
