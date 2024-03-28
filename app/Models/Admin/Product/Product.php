@@ -10,21 +10,31 @@ class Product extends Model
     use HasFactory;
 
     protected $fillable = [
+
+        'category_id',
+        'subcategory_id',
         'title',
         'slug',
         'description',
-        'category_id',
-        'subcategory_id',
-        'brand_id',
-        'author_id',
-        'discount',
-        'discount_type',
+        'short_description',
         'price',
         'quantity',
-        'puk_code',
-        'thumbnail',
+        'alert_quantity',
+        'discount_type',
+        'discount',
+        'quantity',
         'slider',
+        'sku_code',
         'status',
-        'is_stock'
+        'thumbnail',
+        'brand_id',
+        'author_id',
+        'meta_title',
+        'meta_description',
+        'meta_keyword',
+
     ];
+
+
+
 }

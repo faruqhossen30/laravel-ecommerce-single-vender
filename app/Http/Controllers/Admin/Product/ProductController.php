@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin\Product;
 use App\Http\Controllers\Controller;
 use App\Models\Admin\Gallery;
 use App\Models\Admin\Product\Attribute;
+use App\Models\Admin\Product\Brand;
 use App\Models\Admin\Product\Category;
 use App\Models\Admin\Product\Color;
 use App\Models\Admin\Product\Product;
@@ -36,7 +37,8 @@ class ProductController extends Controller
         $thumbnails    = Gallery::paginate(8);
         $attributes    = Attribute::with('values')->get();
         $colors        = Color::all();
-        return view('admin.product.create',compact('categories','subcategories','thumbnails','attributes','colors'));
+        $brands        = Brand::all();
+        return view('admin.product.create',compact('categories','subcategories','thumbnails','attributes','colors','brands'));
 
     }
 
@@ -63,24 +65,28 @@ class ProductController extends Controller
             ]
         );
 
+
         $data = [
-            'title'          => $request->title,
-            'slug'           => Str::slug($request->title),
-            'description'    => $request->description,
-            'category_id'    => $request->category_id,
-            'subcategory_id' => $request->subcategory_id,
-            'brand_id'       => $request->brand_id,
-            'slider'         => $request->slider,
-            'author_id'      => Auth::user()->id,
-            'discount'       => $request->discount,
-            'price'          => $request->price,
-            'quantity'       => $request->quantity,
-            'puk_code'       => $request->puk_code,
-            'is_stock'       => $request->is_stock,
-            'status'         => $request->status,
-            'discount_type'  => $request->discount_type,
-            'thumbnail'      => $request->thumbnail,
-            'slider'         => json_encode($request->slider),
+            'category_id'       => $request->category_id,
+            'subcategory_id'    => $request->subcategory_id,
+            'title'             => $request->title,
+            'slug'              => Str::slug($request->title),
+            'description'       => $request->description,
+            'short_description' => $request->short_description,
+            'price'             => $request->price,
+            'quantity'          => $request->quantity,
+            'alert_quantity'    => $request->alert_quantity,
+            'discount_type'     => $request->discount_type,
+            'discount'          => $request->discount,
+            'sku_code'          => $request->sku_code,
+            'status'            => $request->status,
+            'thumbnail'         => $request->thumbnail,
+            'brand_id'          => $request->brand_id,
+            'slider'            => json_encode($request->slider),
+            'author_id'         => Auth::user()->id,
+            'meta_title'        => $request->meta_title,
+            'meta_description'  => $request->meta_description,
+            'meta_keyword'      => $request->meta_keyword,
 
         ];
 

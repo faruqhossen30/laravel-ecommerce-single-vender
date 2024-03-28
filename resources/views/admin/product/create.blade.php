@@ -7,10 +7,10 @@
         <div class="p-6">
             <form action="{{ route('product.store') }}" method="POST" enctype="multipart/form-data">
                 @csrf
-
-
                 <div class="grid grid-cols-12 gap-4">
-                    <div class="col-span-8 space-y-2">
+                    <div class="col-span-12 lg:col-span-8 space-y-2">
+                        <x-form.select name="category_id" label="Category" :data="$categories" />
+                        <x-form.select name="subcategory_id" label=" Sub Category" :data="$subcategories" />
                         <x-form.input name="title" label="Product Title" />
                         <label for="description"
                             class="text-sm font-medium text-gray-500 dsark:text-gray-500">Description</label>
@@ -20,130 +20,72 @@
                                 <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
                             @enderror
                         </div>
-                        <x-form.input name="price" type="number" label="Price" />
-                        <x-form.input name="quantity" type="number" label="Quantity" />
-                        <x-form.input name="puk_code" label="PUK Code" />
-                        {{-- <div
-                            class="py-3 flex items-center text-sm text-gray-800 before:flex-[1_1_0%] before:border-t before:border-gray-200 before:me-6 after:flex-[1_1_0%] after:border-t after:border-gray-200 after:ms-6 dark:text-white dark:before:border-gray-600 dark:after:border-gray-600">
-                            Attributes</div>
-
-                        <div class="grid grid-cols-12 items-center border dark:border-gray-700 p-2">
-                            <label for="input-label"
-                                class=" col-span-3 text-sm font-medium mb-2 dark:text-white">Attributes</label>
-                            <select name="attribute_ids[]"
-                                class="col-span-9 py-3 px-4 pe-9 block w-full border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400 dark:focus:ring-gray-600 select-colors"
-                                multiple>
-                                <option>Chose</option>
-                                @foreach ($attributes as $attribute)
-                                    <option value="{{ $attribute->id }}">{{ $attribute->name }}</option>
-                                @endforeach
-                            </select>
-                        </div>
-
-                        <div id="attributesDiv">
-
-                        </div> --}}
-                    </div>
-                    <div class="col-span-4 pt-1 space-y-2">
-                        {{-- <x-form.select name="category_id" label="Select Category" :data="$categories" /> --}}
-                        {{-- <x-form.select name="subcategory_id" label="Select sub Category" :data="$subcategories" /> --}}
-
-                        <div class="py-1">
-                            <label for="category_id" class="text-gray-500 dark:text-gray-500">Category</label>
-                            <select name="category_id" id="category_id" x-model="category_id" x-on:change="catChange"
-                                class="block w-full px-4 py-3 text-sm border-gray-200 rounded-lg pe-9 focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400 dark:focus:ring-gray-600">
-                                <option value="">Select</option>
-                                @foreach ($categories as $category)
-                                    <option value="{{ $category->id }}">{{ $category->name }}</option>
-                                @endforeach
-                            </select>
-                            @error('category_id')
-                                <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
-                            @enderror
-                        </div>
-
-
-                        <div class="py-1">
-                            <label for="subcategory_id" class="text-gray-500 dark:text-gray-500">Sub
-                                Category</label>
-                            <select name="subcategory_id" id="subcategory_id"
-                                class="block w-full px-4 py-3 text-sm border-gray-200 rounded-lg pe-9 focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400 dark:focus:ring-gray-600">
-                                <option value="">Select</option>
-                                <template x-for="subcategory in subcategories" :key="subcategory.id">
-                                    <option :value="subcategory.id" x-text="subcategory.name"></option>
-                                </template>
-                            </select>
-                            @error('subcategory_id')
-                                <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
-                            @enderror
-                        </div>
-
-                        <div class="py-1">
-                            <label for="color_id" class="text-gray-500 dark:text-gray-500">Color</label>
-                            <select name="color_id" id="color_id" x-model="color_id" x-on:change="catChange"
-                                class="block w-full px-4 py-3 text-sm border-gray-200 rounded-lg pe-9 focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400 dark:focus:ring-gray-600">
-                                <option value="">Select</option>
-                                @foreach ($categories as $category)
-                                    <option value="{{ $category->id }}">{{ $category->name }}</option>
-                                @endforeach
-                            </select>
-                            @error('category_id')
-                                <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
-                            @enderror
-                        </div>
-                        <div>
-                            <label for="Discount"
-                                class="block text-sm  mb-2 dark:text-white">Discount</label>
-                            <div class="relative">
-                                <input type="number" id="hs-inline-leading-pricing-select-label" name="discount"
-                                    class="py-3 px-4 ps-9 pe-20 block w-full border-gray-200 shadow-sm rounded-lg text-sm focus:z-10 focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400 dark:focus:ring-gray-600"
-                                    placeholder="0.00">
-                                <div class="absolute inset-y-0 start-0 flex items-center pointer-events-none z-20 ps-4">
-                                    <span class="text-gray-500  font-semibold"><strong>৳</strong></span>
-                                </div>
-                                <div class="absolute inset-y-0 end-0 flex items-center text-gray-500 pe-px">
-                                    <label for="discount_type" class="sr-only">Currency</label>
-                                    <select id="discount_type" name="discount_type"
-                                        class="block w-full border-transparent rounded-lg focus:ring-blue-600 focus:border-blue-600 dark:bg-gray-800">
-                                        <option>Flat</option>
-                                        <option>Parcentence</option>
-
-                                    </select>
-                                </div>
+                        <x-form.textarea name="short_description" label="Short Description" />
+                        <div class="grid grid-cols-2 gap-4">
+                            <div class="col-span-1">
+                                <x-form.input name="price" type="number" label="Price" />
                             </div>
+                            <div class="col-span-1">
+                                <x-form.input name="quantity" type="number" label="Quantity" />
+                            </div>
+
+                        </div>
+                        <div class="grid grid-cols-2 gap-4">
+                            <div class="col-span-1">
+                                <x-form.input name="alert_quantity" type="number" label="Alert Quantity" />
+                            </div>
+                            <div class="col-span-1">
+                                <!-----Discount type and discount start ---------->
+                                <div>
+                                    <label for="Discount" class="block text-sm  mb-2 dark:text-white">Discount</label>
+                                    <div class="relative">
+                                        <input type="number" id="hs-inline-leading-pricing-select-label" name="discount"
+                                            class="py-3 px-4 ps-9 pe-20 block w-full border-gray-200 shadow-sm rounded-lg text-sm focus:z-10 focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400 dark:focus:ring-gray-600"
+                                            placeholder="0.00">
+                                        <div
+                                            class="absolute inset-y-0 start-0 flex items-center pointer-events-none z-20 ps-4">
+                                            <span class="text-gray-500  font-semibold"><strong>৳</strong></span>
+                                        </div>
+                                        <div class="absolute inset-y-0 end-0 flex items-center text-gray-500 pe-px">
+                                            <label for="discount_type" class="sr-only">Currency</label>
+                                            <select id="discount_type" name="discount_type"
+                                                class="block w-full border-transparent rounded-lg focus:ring-blue-600 focus:border-blue-600 dark:bg-gray-800">
+                                                <option>Flat</option>
+                                                <option>Parcentence</option>
+
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-----Discount type and discount end ---------->
+                            </div>
+
                         </div>
 
 
-
-                        {{-- <label for="discount_type"
-                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Status</label>
-                        <select name="discount_type" id="discount_type"
-                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                            <option value="flat">Flat</option>
-                            <option value="parcentence">Parcentence</option>
-                        </select> --}}
-
-
-                        {{-- <x-form.input name="discount" type="number" label="Discount" /> --}}
+                    </div>
+                    <div class="col-span-12 lg:col-span-4 pt-1 space-y-2">
+                        <x-form.input name="sku_code" label="SUK Code" />
                         <x-form.select-status-draft name="status" label="Status" />
-                        <x-form.thumbnail-single />
+                        <x-form.select name="color_id" label="Color" :data="$colors" />
 
-
+                        <x-form.select name="brand_id" label="Brand" :data="$brands" />
+                        <x-form.card title="SEO Section">
+                            <x-form.input name="meta_title" label="Meta Title" />
+                            <x-form.textarea name="meta_description" label="Meta Description" />
+                            <div>
+                                <label for="input_tags" class="text-gray-500 dark:text-gray-500 text-sm font-medium">Meta Keyword</label>
+                                <input type="text" id="input_tags" name="meta_keyword" class="py-3 px-4 block w-full border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400 dark:focus:ring-gray-600" placeholder="tags" required />
+                            </div>
+                        </x-form.card>
+                        <x-form.thumbnail-single  />
                         <button type="button" onclick="showMultiPhotoModal()"
-                            class="py-3 w-full px-4 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-gray-200 bg-white text-gray-500 shadow-sm hover:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-800 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600">
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                                stroke="currentColor" class="w-6 h-6">
-                                <path stroke-linecap="round" stroke-linejoin="round"
-                                    d="m2.25 15.75 5.159-5.159a2.25 2.25 0 0 1 3.182 0l5.159 5.159m-1.5-1.5 1.409-1.409a2.25 2.25 0 0 1 3.182 0l2.909 2.909m-18 3.75h16.5a1.5 1.5 0 0 0 1.5-1.5V6a1.5 1.5 0 0 0-1.5-1.5H3.75A1.5 1.5 0 0 0 2.25 6v12a1.5 1.5 0 0 0 1.5 1.5Zm10.5-11.25h.008v.008h-.008V8.25Zm.375 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Z" />
-                            </svg>
-
+                            class="tags_input py-3 w-full px-4 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-gray-200 bg-white text-gray-500 shadow-sm hover:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-800 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600">
+                            <x-icon.photo />
                             Image Gallery
                         </button>
-
                         <div class="space-y-2" id="photosDiv">
-
                         </div>
-
                     </div>
 
                 </div>
@@ -154,6 +96,9 @@
         </div>
     </div>
 @endsection
+
+
+
 
 @push('styles')
     <meta name="csrf-token" content="{{ csrf_token() }}">
@@ -168,12 +113,21 @@
             font-size: 24px
         }
     </style>
+
+
+    <link rel="stylesheet" type="text/css" href="{{asset('css/inputTags.min.css')}}" />
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 @endpush
 
 @push('scripts')
     <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
+    <script src="{{asset('js/inputTags.jquery.min.js')}}"></script>
+
+    <script>
+        $('#input_tags').tagsInput();
+    </script>
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
     <script>
         $(document).ready(function() {
             $('.select-colors').select2()
@@ -196,6 +150,7 @@
             // });
 
         })
+
     </script>
     <script>
         var photos = [];
@@ -284,63 +239,5 @@
             },
         }
     </script>
-    {{--
 
-    <script>
-        var myModal = document.getElementById("modalEl");
-        const options = {
-            placement: "top-center",
-            backdrop: "static",
-            backdropClasses: "bg-gray-900/50 dark:bg-gray-900/80 fixed inset-0 z-40",
-            closable: true,
-            onHide: () => {
-                $('#galleryModalBody').empty();
-            },
-            onShow: () => {
-                axios.get(`http://127.0.0.1:8000/ajax/galleries`)
-                    .then(res => {
-                        $('#galleryModalBody').append(res.data);
-                    })
-                console.log("modal is shown");
-            },
-            onToggle: () => {
-                console.log("modal has been toggled");
-            },
-        };
-
-        function showModal() {
-            var myModalObject = new Modal(myModal, options);
-            myModalObject.show();
-        }
-
-        function hideModal() {
-            var myModalObject = new Modal(myModal, options);
-            myModalObject.hide();
-        }
-    </script>
-
-    <script>
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
-        });
-
-        $(document).on('click', '.pagination a', function(e) {
-            e.preventDefault();
-            let page = $(this).attr('href').split('page=')[1]
-            console.log(page);
-            record(page)
-        })
-
-        function record(page) {
-            $.ajax({
-                url: "/ajax/galleries/paginate?page=" + page,
-                success: function(res) {
-                    $('#galleryModalBody').empty();
-                    $('#galleryModalBody').append(res);
-                }
-            })
-        }
-    </script> --}}
 @endpush

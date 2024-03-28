@@ -13,23 +13,27 @@ return new class extends Migration
     {
         Schema::create('products', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('category_id');
+            $table->unsignedBigInteger('subcategory_id')->nullable();
             $table->string('title');
             $table->string('slug')->unique();
             $table->longText('description');
-            $table->unsignedBigInteger('category_id')->nullable();
-            $table->unsignedBigInteger('subcategory_id')->nullable();
-            $table->unsignedBigInteger('brand_id')->nullable();
-            $table->string('thumbnail');
-            $table->json('slider')->nullable();
-            $table->unsignedBigInteger('author_id');
-            // price
+            $table->string('short_description',1000);
             $table->float('price');
             $table->integer('quantity');
-            $table->string('puk_code')->nullable();
-            $table->float('discount')->nullable();
+            $table->integer('alert_quantity');
             $table->enum('discount_type',['flat','parcentence'])->nullable();
+            $table->float('discount')->nullable();
+            $table->string('sku_code')->nullable();
             $table->enum('status',['active','draft'])->default('draft');
-            $table->boolean('is_stock')->default(true)->nullable();
+            $table->string('thumbnail');
+            $table->unsignedBigInteger('brand_id')->nullable();
+            $table->json('slider')->nullable();
+            $table->unsignedBigInteger('author_id');
+            //seo section
+            $table->string('meta_title')->nullable();
+            $table->string('meta_description')->nullable();
+            $table->string('meta_keyword')->nullable();
             $table->timestamps();
         });
     }

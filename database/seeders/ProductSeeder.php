@@ -47,6 +47,6 @@ class ProductSeeder extends Seeder
             array('id' => '32','title' => 'Black Georgette Tiered Pattern Maxi5','slug' => 'black-georgette-tiered-pattern-maxi5','description' => '<h4><strong>Black Georgette Tiered Pattern Maxi</strong></h4>','category_id' => '11','subcategory_id' => NULL,'brand_id' => NULL,'thumbnail' => '7d58a916-f619-4222-b184-ab94b021047e.jpg','slider' => 'null','author_id' => '1','price' => '3500.00','quantity' => '1','puk_code' => NULL,'discount' => '10.00','discount_type' => 'flat','status' => 'active','is_stock' => NULL,'created_at' => '2024-03-25 13:59:47','updated_at' => '2024-03-25 13:59:47'),
             array('id' => '33','title' => 'Red Georgette Long Gown2','slug' => 'red-georgette-long-gown2','description' => '<h4><strong>Red Georgette Long Gown</strong></h4>','category_id' => '11','subcategory_id' => NULL,'brand_id' => NULL,'thumbnail' => '9a38c40d-1671-42e7-be76-67e270925907.jpg','slider' => 'null','author_id' => '1','price' => '4680.00','quantity' => '1','puk_code' => NULL,'discount' => '10.00','discount_type' => 'flat','status' => 'active','is_stock' => NULL,'created_at' => '2024-03-25 14:24:33','updated_at' => '2024-03-25 14:24:33')
           );
-          Product::insert($products);
+        //   Product::insert($products);
     }
 }

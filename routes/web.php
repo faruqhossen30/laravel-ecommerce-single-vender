@@ -5,6 +5,7 @@ use App\Http\Controllers\Ajax\AttributeValueSelectAjaxController;
 use App\Http\Controllers\Ajax\GalleryAjaxController;
 use App\Http\Controllers\ArticlesController;
 use App\Http\Controllers\BlogComtroller;
+use App\Http\Controllers\BuynowController;
 use App\Http\Controllers\CategorypageController;
 use App\Http\Controllers\CategoryProductpageController;
 use App\Http\Controllers\ConditionController;
@@ -13,6 +14,8 @@ use App\Http\Controllers\FaqController;
 use App\Http\Controllers\HomepageController;
 use App\Http\Controllers\PricepageController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\SearchController;
+use App\Http\Controllers\SearchpageController;
 use App\Http\Controllers\SingleProductpageController;
 use App\Http\Controllers\TearmsController;
 use Illuminate\Support\Facades\Route;
@@ -33,6 +36,8 @@ Route::get('/product/{id}',[SingleProductpageController::class,'singleproduct'])
 Route::get('/category/{slug}',[CategoryProductpageController::class,'index'])->name('categoryproduct');
 Route::get('categories',[CategorypageController::class,'index'])->name('categorypage');
 
+Route::get('buy-now',[BuynowController::class,'buyNow'])->name('buy.now');
+Route::get('search', [SearchpageController::class, 'searchpage'])->name('search.page');
 
 Route::get('about',[AboutController::class,'index'])->name('aboutpage');
 Route::get('price', [PricepageController::class, 'index'])->name('pricepage');
