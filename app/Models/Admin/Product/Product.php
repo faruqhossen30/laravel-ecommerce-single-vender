@@ -36,5 +36,12 @@ class Product extends Model
     ];
 
 
+    public function getItemAttribute($value)
+    {
+        return $this->value;
+    }
+
+
+
 
 }

@@ -86,9 +86,10 @@
                 </a>
             </span>
         </div>
-        <form class="flex items-center order-4 col-span-12 bg-white rounded-md lg:order-2 lg:col-span-4" action="{{route('search.page')}}"
-            method="get">
-            <input type="text" name="keyword" class="w-full border-0 rounded-md focus:outline-0 focus:border-0 focus:ring-0"
+        <form class="flex items-center order-4 col-span-12 bg-white rounded-md lg:order-2 lg:col-span-4"
+            action="{{ route('search.page') }}" method="get">
+            <input type="text" name="keyword"
+                class="w-full border-0 rounded-md focus:outline-0 focus:border-0 focus:ring-0"
                 placeholder="Search your products ...">
             <span class="px-2">
                 <button type="submit">
@@ -130,7 +131,7 @@
                                 href="{{ route('loginpage') }}" class="text-xs">Register</a></p>
                     </div>
                 </div>
-                <a href="#" class="flex space-x-1 text-white">
+                <a href="{{route('cartpage')}}" class="flex space-x-1 text-white">
 
                     <button type="button"
                         class="relative inline-flex items-center p-3 text-sm font-medium text-center text-white rounded-lg focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
@@ -141,9 +142,9 @@
                         </svg>
 
                         <span class="sr-only">Notifications</span>
-                        <div
+                        <div x-text="$store.cart.items.length"
                             class="absolute inline-flex items-center justify-center w-6 h-6 text-xs font-bold text-white bg-red-500 border-white rounded-md -top-2 -end-2 dark:border-gray-900">
-                            0</div>
+                            </div>
                     </button>
 
                 </a>
@@ -156,8 +157,9 @@
         <ul class="flex flex-row mt-0 space-x-10 text-sm font-medium rtl:space-x-reverse">
             @foreach ($categories as $category)
                 <li>
-                    <a href="{{route('categoryproduct', $category->slug)}}" class="text-gray-900 dark:text-white hover:text-red-600"
-                        aria-current="page">{{$category->name}}</a>
+                    <a href="{{ route('categoryproduct', $category->slug) }}"
+                        class="text-gray-900 dark:text-white hover:text-red-600"
+                        aria-current="page">{{ $category->name }}</a>
                 </li>
             @endforeach
         </ul>

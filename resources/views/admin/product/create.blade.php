@@ -74,11 +74,14 @@
                             <x-form.input name="meta_title" label="Meta Title" />
                             <x-form.textarea name="meta_description" label="Meta Description" />
                             <div>
-                                <label for="input_tags" class="text-gray-500 dark:text-gray-500 text-sm font-medium">Meta Keyword</label>
-                                <input type="text" id="input_tags" name="meta_keyword" class="py-3 px-4 block w-full border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400 dark:focus:ring-gray-600" placeholder="tags" required />
+                                <label for="input_tags" class="text-gray-500 dark:text-gray-500 text-sm font-medium">Meta
+                                    Keyword</label>
+                                <input type="text" id="input_tags" name="meta_keyword"
+                                    class="py-3 px-4 block w-full border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400 dark:focus:ring-gray-600"
+                                    placeholder="tags" required />
                             </div>
                         </x-form.card>
-                        <x-form.thumbnail-single  />
+                        <x-form.thumbnail-single />
                         <button type="button" onclick="showMultiPhotoModal()"
                             class="tags_input py-3 w-full px-4 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-gray-200 bg-white text-gray-500 shadow-sm hover:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-800 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600">
                             <x-icon.photo />
@@ -105,6 +108,16 @@
     <script src="{{ asset('js/ckeditor.js') }}"></script>
     <link rel="stylesheet" href="{{ asset('css/ckeditor.css') }}">
     <style>
+        .tagsinput {
+            width: 100% !important;
+        }
+
+        #input_tags_tag {
+            border-radius: 12px;
+            padding: 4px 10px;
+            width: 100%;
+        }
+
         .ck-editor__editable_inline {
             height: 300px;
         }
@@ -115,13 +128,13 @@
     </style>
 
 
-    <link rel="stylesheet" type="text/css" href="{{asset('css/inputTags.min.css')}}" />
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/inputTags.min.css') }}" />
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 @endpush
 
 @push('scripts')
     <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
-    <script src="{{asset('js/inputTags.jquery.min.js')}}"></script>
+    <script src="{{ asset('js/inputTags.jquery.min.js') }}"></script>
 
     <script>
         $('#input_tags').tagsInput();
@@ -150,7 +163,6 @@
             // });
 
         })
-
     </script>
     <script>
         var photos = [];
@@ -239,5 +251,4 @@
             },
         }
     </script>
-
 @endpush

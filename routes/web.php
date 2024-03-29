@@ -6,6 +6,7 @@ use App\Http\Controllers\Ajax\GalleryAjaxController;
 use App\Http\Controllers\ArticlesController;
 use App\Http\Controllers\BlogComtroller;
 use App\Http\Controllers\BuynowController;
+use App\Http\Controllers\CartpageController;
 use App\Http\Controllers\CategorypageController;
 use App\Http\Controllers\CategoryProductpageController;
 use App\Http\Controllers\ConditionController;
@@ -38,6 +39,8 @@ Route::get('categories',[CategorypageController::class,'index'])->name('category
 
 Route::get('buy-now',[BuynowController::class,'buyNow'])->name('buy.now');
 Route::get('search', [SearchpageController::class, 'searchpage'])->name('search.page');
+Route::get('carts', [CartpageController::class, 'index'])->name('cartpage');
+
 
 Route::get('about',[AboutController::class,'index'])->name('aboutpage');
 Route::get('price', [PricepageController::class, 'index'])->name('pricepage');
